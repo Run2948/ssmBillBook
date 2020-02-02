@@ -1,10 +1,15 @@
 package com.borun.billbook.controller;
 
-import com.borun.billbook.bean.*;
-import com.borun.billbook.service.BSortService;
-import com.borun.billbook.bean.*;
+import com.borun.billbook.bean.BBill;
+import com.borun.billbook.bean.BPay;
+import com.borun.billbook.bean.BSort;
+import com.borun.billbook.bean.BaseBean;
+import com.borun.billbook.bean.MonthBillListBean;
+import com.borun.billbook.bean.MonthChartListBean;
+import com.borun.billbook.bean.MonthPayListBean;
 import com.borun.billbook.service.BBillService;
 import com.borun.billbook.service.BPayService;
+import com.borun.billbook.service.BSortService;
 import com.borun.billbook.utils.DateUtils;
 import com.borun.billbook.utils.StringUtils;
 import org.apache.ibatis.annotations.Param;
@@ -71,9 +76,10 @@ public class BBillController {
      */
     @RequestMapping("update")
     @ResponseBody
-    public BaseBean upadteBill(@Param("id")int id, @Param("cost") Float cost, @Param("content") String content,
-                         @Param("userid") int userid, @Param("sortid") int sortid, @Param("payid") int payid,
-                         @Param("crdate") String crdate, @Param("income") boolean income, @Param("version") int version) {
+    public BaseBean upadteBill(@Param("id") int id, @Param("cost") Float cost, @Param("content") String content,
+                               @Param("userid") int userid, @Param("sortid") int sortid, @Param("payid") int payid,
+                               @Param("crdate") String crdate, @Param("income") boolean income,
+                               @Param("version") int version) {
         //实现简单的乐观锁
         if (version != bBillService.findBillById(id).getVersion())
             return new BaseBean().fail("请先更新账单");
@@ -108,7 +114,7 @@ public class BBillController {
     @RequestMapping("find/{id}")
     @ResponseBody
     public BBill findById(@PathVariable("id") Integer id) {
-        BBill bill=bBillService.findBillById(id);
+        BBill bill = bBillService.findBillById(id);
         return bill;
     }
 
@@ -124,7 +130,8 @@ public class BBillController {
     @RequestMapping("user/{id}/{yy}/{mm}")
     @ResponseBody
     public MonthBillListBean findDetailByUserIdWithYM(@PathVariable("id") Integer id,
-                                                      @PathVariable("yy") String year, @PathVariable("mm") String month) {
+                                                      @PathVariable("yy") String year,
+                                                      @PathVariable("mm") String month) {
 
         MonthBillListBean monthBillListBean = new MonthBillListBean();
         List<MonthBillListBean.DayBillList> daylist = new ArrayList<>();
@@ -143,8 +150,10 @@ public class BBillController {
             if (bBills.size() != 0) {
                 MonthBillListBean.DayBillList dayBillList = new MonthBillListBean.DayBillList();
                 dayBillList.setList(bBills);
-                String t_outcome = bBillService.getTotalOutcomeByUserIdWithYearMonthDay(id, year + "-" + month + "-" + day2);
-                String t_income = bBillService.getTotalIncomeByUserIdWithYearMonthDay(id, year + "-" + month + "-" + day2);
+                String t_outcome = bBillService.getTotalOutcomeByUserIdWithYearMonthDay(id,
+                        year + "-" + month + "-" + day2);
+                String t_income = bBillService.getTotalIncomeByUserIdWithYearMonthDay(id,
+                        year + "-" + month + "-" + day2);
                 //money:支出：18268.00 收入：0.00
                 dayBillList.setMoney("支出：" + t_outcome + " 收入：" + t_income);
                 dayBillList.setTime(day2 + "日-" + DateUtils.getWeek(year + "-" + month + "-" + day2));
@@ -171,13 +180,14 @@ public class BBillController {
     @RequestMapping("chart/{userid}/{yy}/{mm}")
     @ResponseBody
     public MonthChartListBean findChartByUserIdWithYM(@PathVariable("userid") Integer userid,
-                                                      @PathVariable("yy") String year, @PathVariable("mm") String month) {
+                                                      @PathVariable("yy") String year,
+                                                      @PathVariable("mm") String month) {
         MonthChartListBean monthChartListBean = new MonthChartListBean();
-        List<MonthChartListBean.SortTypeList> outSortlist=new ArrayList<>();
-        List<MonthChartListBean.SortTypeList> inSortlist=new ArrayList<>();
+        List<MonthChartListBean.SortTypeList> outSortlist = new ArrayList<>();
+        List<MonthChartListBean.SortTypeList> inSortlist = new ArrayList<>();
         //获取用户的账单分类情况
-        List<BSort> outSortList=bSortService.findOutSortByUserId(userid);
-        List<BSort> inSortList=bSortService.findInSortByUserId(userid);
+        List<BSort> outSortList = bSortService.findOutSortByUserId(userid);
+        List<BSort> inSortList = bSortService.findInSortByUserId(userid);
         //获取用户此月总收支
         monthChartListBean.setTotalIn(bBillService.getTotalIncomeByUserIdWithYearMonth(userid, year + "-" + month));
         monthChartListBean.setTotalOut(bBillService.getTotalOutcomeByUserIdWithYearMonth(userid, year + "-" + month));
@@ -188,31 +198,31 @@ public class BBillController {
                 userid, DateUtils.getLastMonth(year + "-" + month)));
 
         //支出
-        for (BSort sort:outSortList) {
-            List<BBill> tempBBills=bBillService.findChatsByUserIdWithYSortYM(userid,sort.getId(),
-                    year + "-" + month,false);
-            if (tempBBills.size()!=0){
-                MonthChartListBean.SortTypeList tempSortlist=new MonthChartListBean.SortTypeList();
+        for (BSort sort : outSortList) {
+            List<BBill> tempBBills = bBillService.findChatsByUserIdWithYSortYM(userid, sort.getId(),
+                    year + "-" + month, false);
+            if (tempBBills.size() != 0) {
+                MonthChartListBean.SortTypeList tempSortlist = new MonthChartListBean.SortTypeList();
                 tempSortlist.setList(tempBBills);
                 tempSortlist.setSort(sort);
                 tempSortlist.setBack_color(StringUtils.randomColor());
                 tempSortlist.setMoney(bBillService.getTotalOutcomeByUserIdAndSortIdYM(userid,
-                        sort.getId(),year + "-" + month));
+                        sort.getId(), year + "-" + month));
                 outSortlist.add(tempSortlist);
             }
         }
 
         //收入
-        for (BSort sort:inSortList) {
-            List<BBill> tempBBills=bBillService.findChatsByUserIdWithYSortYM(userid,sort.getId(),
-                    year + "-" + month,true);
-            if (tempBBills.size()!=0){
-                MonthChartListBean.SortTypeList tempSortlist=new MonthChartListBean.SortTypeList();
+        for (BSort sort : inSortList) {
+            List<BBill> tempBBills = bBillService.findChatsByUserIdWithYSortYM(userid, sort.getId(),
+                    year + "-" + month, true);
+            if (tempBBills.size() != 0) {
+                MonthChartListBean.SortTypeList tempSortlist = new MonthChartListBean.SortTypeList();
                 tempSortlist.setList(tempBBills);
                 tempSortlist.setSort(sort);
                 tempSortlist.setBack_color(StringUtils.randomColor());
                 tempSortlist.setMoney(bBillService.getTotalIncomeByUserIdAndSortIdYM(userid,
-                        sort.getId(),year + "-" + month));
+                        sort.getId(), year + "-" + month));
                 inSortlist.add(tempSortlist);
             }
         }
@@ -223,7 +233,7 @@ public class BBillController {
 
         monthChartListBean.setSuccess();
         //收支均为0
-        if(outSortlist.size()==0 && inSortlist.size()==0)
+        if (outSortlist.size() == 0 && inSortlist.size() == 0)
             monthChartListBean.setFail();
 
         return monthChartListBean;
@@ -240,11 +250,12 @@ public class BBillController {
     @RequestMapping("pay/{userid}/{yy}/{mm}")
     @ResponseBody
     public MonthPayListBean findPayInfoByUserIdWithYM(@PathVariable("userid") Integer userid,
-                                                      @PathVariable("yy") String year, @PathVariable("mm") String month) {
+                                                      @PathVariable("yy") String year,
+                                                      @PathVariable("mm") String month) {
         MonthPayListBean monthPayListBean = new MonthPayListBean();
         List<MonthPayListBean.PayTypeListBean> list = new ArrayList<>();
         //获取用户的账单分类情况
-        List<BPay> bPayList=bPayService.findPayinfoByUserId(userid);
+        List<BPay> bPayList = bPayService.findPayinfoByUserId(userid);
         //获取用户此月总收支
         monthPayListBean.setTotalIn(bBillService.getTotalIncomeByUserIdWithYearMonth(userid, year + "-" + month));
         monthPayListBean.setTotalOut(bBillService.getTotalOutcomeByUserIdWithYearMonth(userid, year + "-" + month));
@@ -255,13 +266,13 @@ public class BBillController {
                 userid, DateUtils.getLastMonth(year + "-" + month)));
 
         //支付信息
-        for (BPay pay:bPayList) {
+        for (BPay pay : bPayList) {
 
-            MonthPayListBean.PayTypeListBean listBean=new MonthPayListBean.PayTypeListBean();
+            MonthPayListBean.PayTypeListBean listBean = new MonthPayListBean.PayTypeListBean();
             listBean.setbPay(pay);
 
-            String income=bBillService.getTotalIncomeByUserIdWithPayIdYM(userid,pay.getId(),year + "-" + month);
-            String outcome=bBillService.getTotalOutcomeByUserIdWithPayIdYM(userid,pay.getId(),year + "-" + month);
+            String income = bBillService.getTotalIncomeByUserIdWithPayIdYM(userid, pay.getId(), year + "-" + month);
+            String outcome = bBillService.getTotalOutcomeByUserIdWithPayIdYM(userid, pay.getId(), year + "-" + month);
 
             listBean.setIncome(income);
             listBean.setOutcome(outcome);

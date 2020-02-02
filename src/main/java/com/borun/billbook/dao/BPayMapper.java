@@ -1,7 +1,7 @@
 package com.borun.billbook.dao;
 
-import com.borun.billbook.bean.BPayExample;
 import com.borun.billbook.bean.BPay;
+import com.borun.billbook.bean.BPayExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

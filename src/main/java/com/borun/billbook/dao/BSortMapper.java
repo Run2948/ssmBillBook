@@ -21,6 +21,7 @@ public interface BSortMapper {
 
     //通过用户id查询用户的支出账单分类，包含系统自带
     List<BSort> selectOutByUserId(Integer userid);
+
     //通过用户id查询用户的收入账单分类，包含系统自带
     List<BSort> selectInByUserId(Integer userid);
 

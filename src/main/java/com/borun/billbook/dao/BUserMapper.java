@@ -1,10 +1,10 @@
 package com.borun.billbook.dao;
 
-import com.borun.billbook.bean.BUserExample;
 import com.borun.billbook.bean.BUser;
+import com.borun.billbook.bean.BUserExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface BUserMapper {
     long countByExample(BUserExample example);
@@ -20,7 +20,9 @@ public interface BUserMapper {
     List<BUser> selectByExample(BUserExample example);
 
     BUser selectByPrimaryKey(Integer id);
+
     BUser selectByUserName(String username);
+
     BUser selectByMailCode(String mailcode);
 
     int updateByExampleSelective(@Param("record") BUser record, @Param("example") BUserExample example);

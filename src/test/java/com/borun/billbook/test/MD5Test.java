@@ -1,12 +1,14 @@
 package com.borun.billbook.test;
 
 import com.borun.billbook.utils.MDUtils;
+import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 
 public class MD5Test {
 
-    public static void main(String[] args) {
+    @Test
+    public void encode() {
         try {
             System.out.println(MDUtils.encodeMD2ToStr("admin"));
             System.out.println(MDUtils.encodeMD2ToStr("user01"));

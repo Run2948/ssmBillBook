@@ -5,14 +5,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MDUtils {
+
     /**
      * 通过用户名和密码明文生成作者的账号加密密码
+     *
      * @param userName
      * @param userPass
      * @return 加密密码
      * @throws NoSuchAlgorithmException
      */
-    public static String generatePass(String userName,String userPass) throws NoSuchAlgorithmException {
+    public static String generatePass(String userName, String userPass) throws NoSuchAlgorithmException {
         return encodeMD5ToStr(userName + userPass);
     }
 

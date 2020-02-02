@@ -8,11 +8,11 @@ import java.util.Random;
 public class StringUtils {
     /**
      * 二进制转十进制
+     *
      * @param buff
      * @return
      */
-    public static String byte2hex(byte[] buff)
-    {
+    public static String byte2hex(byte[] buff) {
         if ((buff == null) || (buff.length <= 0)) {
             return "";
         }
@@ -30,8 +30,7 @@ public class StringUtils {
         return hexStr.toString().toUpperCase();
     }
 
-    public static String byte2Hex(byte[] b, boolean upper)
-    {
+    public static String byte2Hex(byte[] b, boolean upper) {
         String result = "";
         String stmp = "";
         for (int n = 0; n < b.length; n++) {
@@ -50,20 +49,22 @@ public class StringUtils {
 
     /**
      * 将金额字符串为null时转换成0.00
+     *
      * @param str
      * @return
      */
-    public static String  null2Zero(String str){
-        if(str==null)
-            str="0.00";
+    public static String null2Zero(String str) {
+        if (str == null)
+            str = "0.00";
         return str;
     }
 
     /**
      * 随机返回颜色Color十六进制字符串
+     *
      * @return
      */
-    public static String randomColor(){
+    public static String randomColor() {
         //红色
         String red;
         //绿色
@@ -80,13 +81,13 @@ public class StringUtils {
         blue = Integer.toHexString(random.nextInt(256)).toUpperCase();
 
         //判断红色代码的位数
-        red = red.length()==1 ? "0" + red : red ;
+        red = red.length() == 1 ? "0" + red : red;
         //判断绿色代码的位数
-        green = green.length()==1 ? "0" + green : green ;
+        green = green.length() == 1 ? "0" + green : green;
         //判断蓝色代码的位数
-        blue = blue.length()==1 ? "0" + blue : blue ;
+        blue = blue.length() == 1 ? "0" + blue : blue;
         //生成十六进制颜色值
-        return "#"+red+green+blue;
+        return "#" + red + green + blue;
     }
 }
 

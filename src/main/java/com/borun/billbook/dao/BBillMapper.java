@@ -2,9 +2,9 @@ package com.borun.billbook.dao;
 
 import com.borun.billbook.bean.BBill;
 import com.borun.billbook.bean.BBillExample;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface BBillMapper {
     long countByExample(BBillExample example);
@@ -22,18 +22,27 @@ public interface BBillMapper {
     List<BBill> selectByUserId(Integer userid);
 
     List<BBill> selectBillsByUserIdWithSortYMD(Integer userid, String yearmonthday);
+
     List<BBill> selectBillsByUserIdYMD(Integer userid, String yearmonthday);
 
     List<BBill> selectOutBillsByUserIdAndSortIdWithSortYM(Integer userid, Integer sortid, String yearmonth);
+
     List<BBill> selectInBillsByUserIdAndSortIdWithSortYM(Integer userid, Integer sortid, String yearmonth);
 
     String getTotalIncomeByUserIdWithYearMonth(Integer userid, String yearmonth);
+
     String getTotalOutcomeByUserIdWithYearMonth(Integer userid, String yearmonth);
+
     String getTotalIncomeByUserIdWithSortIdYM(Integer userid, Integer sortid, String yearmonth);
+
     String getTotalOutcomeByUserIdWithSortIdYM(Integer userid, Integer sortid, String yearmonth);
+
     String getTotalIncomeByUserIdWithPayIdYM(Integer userid, Integer payid, String yearmonth);
+
     String getTotalOutcomeByUserIdWithPayIdYM(Integer userid, Integer payid, String yearmonth);
+
     String getTotalIncomeByUserIdWithYearMonthDay(Integer userid, String yearmonthday);
+
     String getTotalOutcomeByUserIdWithYearMonthDay(Integer userid, String yearmonthday);
 
     BBill selectByPrimaryKey(Integer id);

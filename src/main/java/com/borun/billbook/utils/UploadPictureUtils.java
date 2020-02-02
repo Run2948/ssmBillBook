@@ -9,11 +9,11 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * Created by Qing on 2017/12/25.
+ * 文件上传工具类
  */
 public class UploadPictureUtils {
 
-    public  static  String addMutiparFile(MultipartFile file) throws IOException {
+    public static String addMutiparFile(MultipartFile file) throws IOException {
         System.out.println("上传的文件" + file);
         if (file.isEmpty()) {
             return null;
@@ -27,12 +27,13 @@ public class UploadPictureUtils {
             String originalFileName = file.getOriginalFilename();
             String fileSuffix = originalFileName.substring(originalFileName.lastIndexOf("."));
             // 判断文件类型
-            type = fileName.indexOf(".") != -1 ? fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()) : null;
+            type = fileName.contains(".") ? fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()) : null;
             //获取图片全路径
             String realPath = "/var/zzs/";
             String urlPrefix = "http://localhost:8080/";
             System.out.println(realPath);
-            String pathAppend = "upload/images" + "/" + Calendar.getInstance().get(Calendar.YEAR) + "/" + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/";
+            String pathAppend =
+                    "upload/images" + "/" + Calendar.getInstance().get(Calendar.YEAR) + "/" + (Calendar.getInstance().get(Calendar.MONTH) + 1) + "/" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + "/";
             realPath = realPath + pathAppend;
             File dir = new File(realPath);
             if (dir.exists()) {// 判断目录是否存在
@@ -40,7 +41,6 @@ public class UploadPictureUtils {
             } else {
                 dir.mkdirs();
             }
-
             String newFileName = new Date().getTime() + "" + new Random().nextInt();
             // 设置存放图片文件的路径
             path = realPath + newFileName + fileSuffix;
@@ -49,7 +49,6 @@ public class UploadPictureUtils {
             file.transferTo(new File(path));
             System.out.println("文件成功上传到指定目录下");
             return urlPrefix + pathAppend + newFileName + fileSuffix;
-
         }
     }
 }

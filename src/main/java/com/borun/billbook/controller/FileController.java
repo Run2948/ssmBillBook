@@ -1,8 +1,8 @@
 package com.borun.billbook.controller;
 
-import com.borun.billbook.service.BUserService;
 import com.borun.billbook.bean.BUser;
 import com.borun.billbook.bean.BaseBean;
+import com.borun.billbook.service.BUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Qing on 2017/12/25.
@@ -45,7 +46,7 @@ public class FileController {
             return new BaseBean().fail();
         String path = request.getSession().getServletContext().getRealPath("upload");
         String fileName = file.getOriginalFilename();
-        int id=Integer.parseInt(fileName.split("_")[0]);
+        int id = Integer.parseInt(fileName.split("_")[0]);
         System.out.println(id);
         File dir = new File(path, fileName);
         if (!dir.exists()) {
@@ -54,7 +55,7 @@ public class FileController {
         //MultipartFile自带的解析方法
         file.transferTo(dir);
 
-        BUser user=bUserService.findUserById(id);
+        BUser user = bUserService.findUserById(id);
         user.setImage(fileName);
         bUserService.updateUser(user);
 

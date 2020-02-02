@@ -7,29 +7,25 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 日期工具类 by Qing
- * */
-public class DateUtils
-{
+ * 日期工具类
+ */
+public class DateUtils {
     //返回当前年月日
-    public static String getNowDate()
-    {
+    public static String getNowDate() {
         Date date = new Date();
         String nowDate = new SimpleDateFormat("yyyy年MM月dd日").format(date);
         return nowDate;
     }
 
     //返回当前年份
-    public static int getYear()
-    {
+    public static int getYear() {
         Date date = new Date();
         String year = new SimpleDateFormat("yyyy").format(date);
         return Integer.parseInt(year);
     }
 
     //返回当前月份
-    public static int getMonth()
-    {
+    public static int getMonth() {
         Date date = new Date();
         String month = new SimpleDateFormat("MM").format(date);
         return Integer.parseInt(month);
@@ -58,8 +54,7 @@ public class DateUtils
     }
 
     //判断闰年
-    public static boolean isLeap(int year)
-    {
+    public static boolean isLeap(int year) {
         if (((year % 100 == 0) && year % 400 == 0) || ((year % 100 != 0) && year % 4 == 0))
             return true;
         else
@@ -67,14 +62,12 @@ public class DateUtils
     }
 
     //返回当月天数
-    public static int getDays(int year, int month)
-    {
+    public static int getDays(int year, int month) {
         int days;
         int FebDay = 28;
         if (isLeap(year))
             FebDay = 29;
-        switch (month)
-        {
+        switch (month) {
             case 1:
             case 3:
             case 5:
@@ -103,7 +96,7 @@ public class DateUtils
     //返回日期对应的星期
     public static String getWeek(String sdate) {
         // 再转换为时间
-        Date date = strToDate(sdate+" 00:00:00");
+        Date date = strToDate(sdate + " 00:00:00");
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         // int hour=c.get(Calendar.DAY_OF_WEEK);
@@ -121,19 +114,16 @@ public class DateUtils
     }
 
     //返回当月星期天数
-    public static int getSundays(int year, int month)
-    {
+    public static int getSundays(int year, int month) {
         int sundays = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Calendar setDate = Calendar.getInstance();
         //从第一天开始
         int day;
-        for (day = 1; day <= getDays(year, month); day++)
-        {
+        for (day = 1; day <= getDays(year, month); day++) {
             setDate.set(Calendar.DATE, day);
             String str = sdf.format(setDate.getTime());
-            if (str.equals("星期日"))
-            {
+            if (str.equals("星期日")) {
                 sundays++;
             }
         }
