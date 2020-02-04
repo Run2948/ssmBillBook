@@ -1,0 +1,13 @@
+{
+  "status" : 100,
+  "message" : "处理成功！",
+  "appName" : "简易记账",
+  "hasUpdate" : false,
+  "apkSize" : 6217372,
+  "apkMd5" : "a6c7ee01ff07984075639a3fc61eb6bc",
+  "versionCode" : 5,
+  "versionName" : "6.05.1",
+  "updateStatus" : 1,
+  "downloadUrl" : "/upload/upgrade/49b596ad-cc91-44f7-85be-b8d04e4580ba.apk",
+  "upgradeInfo" : "1.修复了无法在线同步的问题。\r\n2.添加了自动检查更新的功能。\r\n3.简化了业务逻辑。\r\n4.添加了接口的安全验证。\r\n                                "
+}

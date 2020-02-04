@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.security.NoSuchAlgorithmException;
-
 /**
  * 用户User控制类
  */
@@ -24,16 +22,6 @@ public class BUserController {
     private BUserService bUserService;
 
     /**
-     * 返回用户列表页面
-     *
-     * @return
-     */
-    @RequestMapping("")
-    public String userlist() {
-        return "userlist";
-    }
-
-    /**
      * 用户登陆
      *
      * @param username
@@ -43,7 +31,6 @@ public class BUserController {
     @RequestMapping("login")
     @ResponseBody
     public BUser login(@Param("username") String username, @Param("password") String password) {
-
         return bUserService.checkLogin(new BUser(username, password));
     }
 
@@ -137,11 +124,7 @@ public class BUserController {
         //修改密码，不需要验证码
         if (code == "000000") {
             BUser user = bUserService.findUserByUserName(username);
-            try {
-                user.setPassword(MDUtils.encodeMD5ToStr(password));
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
+            user.setPassword(MDUtils.getMD2(password));
             bUserService.updateUser(user);
             user.setSuccess();
             return user;
@@ -158,11 +141,7 @@ public class BUserController {
         //user.setPassword(null);
         //验证邮箱是否匹配
         if (user.getMailcode().equals(code)) {
-            try {
-                user.setPassword(MDUtils.encodeMD2ToStr(password));
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
+            user.setPassword(MDUtils.getMD2(password));
             //更新数据
             bUserService.updateUser(user);
             user.setSuccess();
@@ -192,11 +171,11 @@ public class BUserController {
      * @param id
      * @return
      */
-//    @RequestMapping("id/{id}")
-//    @ResponseBody
-//    public BMessage lookupUserById(@PathVariable("id")Integer id ){
-//        return BMessage.success().add("user",bUserService.findUserById(id));
-//    }
+    @RequestMapping("id/{id}")
+    @ResponseBody
+    public BUser lookupUserById(@PathVariable("id")Integer id ){
+        return bUserService.findUserById(id);
+    }
 
     /**
      * 根据name查询用户

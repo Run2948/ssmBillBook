@@ -28,31 +28,32 @@ public class BaseBean {
         this.message = message;
     }
 
-    public void setSuccess(){
-        status=100;
-        message="处理成功！";
-    }
-    public void setFail(){
-        status=200;
-        message="处理失败！";
+    public void setSuccess() {
+        status = 100;
+        message = "处理成功！";
     }
 
-    public void setFail(String msg){
-        status=200;
-        message=msg;
+    public void setFail() {
+        status = 200;
+        message = "处理失败！";
     }
 
-    public BaseBean success(){
+    public void setFail(String msg) {
+        status = 200;
+        message = msg;
+    }
+
+    public BaseBean success() {
         setSuccess();
         return this;
     }
 
-    public BaseBean fail(){
+    public BaseBean fail() {
         setFail();
         return this;
     }
 
-    public BaseBean fail(String msg){
+    public BaseBean fail(String msg) {
         setFail(msg);
         return this;
     }

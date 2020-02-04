@@ -6,7 +6,6 @@ public class NoteListBean extends BaseBean {
 
     private List<BSort> outSortlis;    //记一笔支出数据
     private List<BSort> inSortlis;     //记一笔收入数据
-
     private List<BPay> payinfo;    //记一笔支付信息数据
 
     public List<BSort> getOutSortlis() {

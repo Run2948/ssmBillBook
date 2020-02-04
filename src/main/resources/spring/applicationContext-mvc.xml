@@ -20,8 +20,8 @@
         <property name="defaultEncoding" value="utf-8"/>
         <!-- 最大内存大小 1M-->
         <property name="maxInMemorySize" value="1048576"/>
-        <!-- 上传图片最大大小2M-->
-        <property name="maxUploadSize" value="2097152"/>
+        <!-- 上传图片最大大小10M-->
+        <property name="maxUploadSize" value="10485760"/>
     </bean>
 
     <!--处理springMVC不能处理的静态资源-->

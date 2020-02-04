@@ -8,7 +8,6 @@ import com.borun.billbook.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 /**
@@ -36,19 +35,15 @@ public class BUserServiceImpl implements BUserService {
         }
         user2 = user;
         user2.setSuccess();
-        try {
-            //将明文密码转换成MD5存储
-            user2.setPassword(MDUtils.encodeMD2ToStr(user.getPassword()));
-            //生成UUID作邮箱验证
-            String code = UUID.randomUUID().toString() + UUID.randomUUID().toString();
-            code = code.replaceAll("-", "");
-            user2.setMailcode(code);
-            //向注册邮箱发送验证文件
-            MailUtils.send(user2.getMail(), "CocoBill",
-                    "恭喜注册成功，请点击链接激活！http://139.199.176.173:8080/ssmBillBook/user/mail/verify?code=" + code);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        //将明文密码转换成MD5存储
+        user2.setPassword(MDUtils.getMD2(user.getPassword()));
+        //生成UUID作邮箱验证
+        String code = UUID.randomUUID().toString() + UUID.randomUUID().toString();
+        code = code.replaceAll("-", "");
+        user2.setMailcode(code);
+        //向注册邮箱发送验证文件
+        MailUtils.send(user2.getMail(), "EasyBill",
+                "恭喜注册成功，请点击链接激活！http://139.199.176.173:8080/ssmBillBook/user/mail/verify?code=" + code);
         user2.setState(0);
         bUserMapper.insert(user2);
         return user2;
@@ -68,20 +63,13 @@ public class BUserServiceImpl implements BUserService {
         if (user2 == null) {
             user.setFail("用户不存在");
             return user;
-        } else {
-            try {
-                if (user2.getPassword().equals(MDUtils.encodeMD2ToStr(user.getPassword()))) {
-                    user2.setSuccess();
-                    return user2;
-                } else {
-                    user.setFail("密码错误");
-                    return user;
-                }
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
         }
-        user.setFail("未知错误");
+        if (user2.getPassword().equals(MDUtils.getMD2(user.getPassword()))) {
+            user2.setSuccess();
+            return user2;
+        }
+
+        user.setFail("密码错误");
         return user;
     }
 

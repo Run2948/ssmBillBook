@@ -20,31 +20,31 @@ public class StringUtils {
         String tmpStr = null;
         StringBuilder hexStr = new StringBuilder();
 
-        for (int n = 0; n < buff.length; n++) {
-            tmpStr = Integer.toHexString(buff[n] & 0xFF);
+        for (byte b : buff) {
+            tmpStr = Integer.toHexString(b & 0xFF);
             if (tmpStr.length() == 1) {
                 hexStr.append("0");
             }
             hexStr.append(tmpStr);
         }
-        return hexStr.toString().toUpperCase();
+        return hexStr.toString().toLowerCase();
     }
 
-    public static String byte2Hex(byte[] b, boolean upper) {
+    public static String byte2Hex(byte[] buff) {
+        if ((buff == null) || (buff.length <= 0)) {
+            return "";
+        }
         String result = "";
-        String stmp = "";
-        for (int n = 0; n < b.length; n++) {
-            stmp = Integer.toHexString(b[n] & 0xFF);
-            if (stmp.length() == 1)
-                result = new StringBuilder().append(result).append("0").append(stmp).toString();
+        String tmpStr = "";
+        for (byte b : buff) {
+            tmpStr = Integer.toHexString(b & 0xFF);
+            if (tmpStr.length() == 1)
+                result = String.format("%s0%s", result, tmpStr);
             else {
-                result = new StringBuilder().append(result).append(stmp).toString();
+                result = result + tmpStr;
             }
         }
-        if (upper) {
-            return result.toUpperCase();
-        }
-        return result.toLowerCase();
+        return result.toUpperCase();
     }
 
     /**

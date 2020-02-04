@@ -7,22 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%
-    pageContext.setAttribute("APP_PATH", request.getContextPath());
-%>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>文件上传下载</title>
 </head>
 <body>
-<form action="${APP_PATH}/file/upload" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/file/upload" method="post" enctype="multipart/form-data">
     选择文件:<input type="file" name="file" width="120px">
     <input type="submit" value="上传">
 </form>
 <hr>
-<form action="${APP_PATH}/file/down" method="get">
-    <input type="submit" value="下载">
-</form>
-</body>
 </body>
 </html>

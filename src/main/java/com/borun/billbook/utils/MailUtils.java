@@ -17,10 +17,10 @@ public class MailUtils {
     /**
      * @param sendTo  邮件接收着地址
      * @param subject 邮件主题
-     * @param msg     邮件正文
+     * @param body     邮件正文
      * @return true发送成功|false发送失败
      */
-    public static boolean send(String sendTo, String subject, String msg) {
+    public static boolean send(String sendTo, String subject, String body) {
         try {
             String host = "smtp.163.com";//这是163邮箱的smtp服务器地址
 //            String host = "220.181.12.14";//这是163邮箱的smtp服务器地址
@@ -59,26 +59,24 @@ public class MailUtils {
             MimeMessage message = new MimeMessage(session);
             message.setSubject(subject);
             //消息发送者接收者设置(发件地址，昵称)，收件人看到的昵称是这里设定的
-            message.setFrom(new InternetAddress(user, "CocoBill"));
+            message.setFrom(new InternetAddress(user, "EasyBill"));
             message.addRecipients(Message.RecipientType.TO, new InternetAddress[]{
                     //消息接收者(收件地址，昵称)
                     //不过这个昵称貌似没有看到效果
-                    new InternetAddress(sendTo, "Mr.x"),
+                    new InternetAddress(sendTo, "Mrs.Yu"),
             });
             message.saveChanges();
 
             //设置邮件内容及编码格式
             //后一个参数可以不指定编码，如"text/plain"，但是将不能显示中文字符
-            message.setContent(msg, "text/plain;charset=UTF-8");
+            message.setContent(body, "text/plain;charset=UTF-8");
             //发送
             //transport.send(message);
             Transport.send(message);
             transport.close();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return false;
     }
-
 }
