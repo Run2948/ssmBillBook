@@ -7,13 +7,19 @@ import com.borun.billbook.bean.BSort2;
 import com.borun.billbook.bean.NoteListBean;
 import com.borun.billbook.service.BPayService;
 import com.borun.billbook.service.BSortService;
+import com.borun.billbook.service.BUserService;
+import com.borun.billbook.utils.JsonUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,14 +33,13 @@ public class BNoteController {
     private BSortService bSortService;
     @Autowired
     private BPayService bPayService;
+    @Autowired
+    private BUserService bUserService;
 
     @RequestMapping("/default")
     @ResponseBody
     public NoteListBean defaultInfo() {
-        NoteListBean noteListBean = new NoteListBean();
-        noteListBean.setInSortlis(bSortService.findInSortByUserId(0));
-        noteListBean.setOutSortlis(bSortService.findOutSortByUserId(0));
-        noteListBean.setPayinfo(bPayService.findPayinfoByUserId(0));
+        NoteListBean noteListBean = bUserService.getUserNodeList(0);
         noteListBean.setSuccess();
         return noteListBean;
     }
@@ -48,10 +53,7 @@ public class BNoteController {
     @RequestMapping("/user/{id}")
     @ResponseBody
     public NoteListBean userNoteinfo(@PathVariable("id") Integer id) {
-        NoteListBean noteListBean = new NoteListBean();
-        noteListBean.setInSortlis(bSortService.findInSortByUserId(id));
-        noteListBean.setOutSortlis(bSortService.findOutSortByUserId(id));
-        noteListBean.setPayinfo(bPayService.findPayinfoByUserId(id));
+        NoteListBean noteListBean = bUserService.getUserNodeList(id);
         noteListBean.setSuccess();
         return noteListBean;
     }
@@ -67,7 +69,6 @@ public class BNoteController {
     public List<BSort> sortinfo(@PathVariable("id") Integer id) {
         return bSortService.findInSortByUserId(id);
     }
-
 
     /**
      * 添加账单分类
@@ -108,6 +109,29 @@ public class BNoteController {
         if (result == 0)
             return (BSort2) new BSort2().fail();
         return (BSort2) new BSort2(sort).success();
+    }
+
+    /**
+     * 同步用户自定义sort分类
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/sort/sync")
+    @ResponseBody
+    public NoteListBean syncSort(@Param("uid") Integer id, @RequestBody List<BSort> sorts) {
+
+        if (sorts != null && sorts.size() > 0) {
+            try {
+                System.out.println(JsonUtils.toJSONString(sorts));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        NoteListBean noteListBean = bUserService.getUserNodeList(id);
+        noteListBean.setSuccess();
+        return noteListBean;
     }
 
     /**
@@ -175,4 +199,26 @@ public class BNoteController {
         return (BPay2) new BPay2(pay).success();
     }
 
+    /**
+     * 同步用户自定义pay分类
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/pay/sync")
+    @ResponseBody
+    public NoteListBean syncPay(@Param("uid") Integer id, @RequestBody List<BPay> pays) {
+
+        if (pays != null && pays.size() > 0) {
+            try {
+                System.out.println(JsonUtils.toJSONString(pays));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        NoteListBean noteListBean = bUserService.getUserNodeList(id);
+        noteListBean.setSuccess();
+        return noteListBean;
+    }
 }

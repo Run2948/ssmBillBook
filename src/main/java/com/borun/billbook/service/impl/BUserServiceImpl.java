@@ -1,6 +1,9 @@
 package com.borun.billbook.service.impl;
 
 import com.borun.billbook.bean.BUser;
+import com.borun.billbook.bean.NoteListBean;
+import com.borun.billbook.dao.BPayMapper;
+import com.borun.billbook.dao.BSortMapper;
 import com.borun.billbook.dao.BUserMapper;
 import com.borun.billbook.service.BUserService;
 import com.borun.billbook.utils.MDUtils;
@@ -18,6 +21,11 @@ public class BUserServiceImpl implements BUserService {
 
     @Autowired
     private BUserMapper bUserMapper;
+
+    @Autowired
+    private BSortMapper bSortMapper;
+    @Autowired
+    private BPayMapper bPayMapper;
 
     /**
      * 添加用户
@@ -129,5 +137,20 @@ public class BUserServiceImpl implements BUserService {
     @Override
     public int updateUser(BUser user) {
         return bUserMapper.updateByPrimaryKeySelective(user);
+    }
+
+    /**
+     * 获取用户账簿信息
+     *
+     * @param userid
+     * @return
+     */
+    @Override
+    public NoteListBean getUserNodeList(Integer userid) {
+        NoteListBean noteListBean = new NoteListBean();
+        noteListBean.setInSortlis(bSortMapper.selectInByUserId(userid));
+        noteListBean.setOutSortlis(bSortMapper.selectOutByUserId(userid));
+        noteListBean.setPayinfo(bPayMapper.selectByUserId(userid));
+        return noteListBean;
     }
 }

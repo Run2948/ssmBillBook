@@ -1,6 +1,7 @@
 package com.borun.billbook.service;
 
 import com.borun.billbook.bean.BUser;
+import com.borun.billbook.bean.NoteListBean;
 
 /**
  * 用户User操作接口
@@ -54,4 +55,13 @@ public interface BUserService {
      * @return
      */
     public int updateUser(BUser user);
+
+
+    /**
+     * 获取用户账簿信息
+     *
+     * @param userid
+     * @return
+     */
+    public NoteListBean getUserNodeList(Integer userid);
 }

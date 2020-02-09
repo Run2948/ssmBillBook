@@ -7,18 +7,23 @@ import com.borun.billbook.bean.BaseBean;
 import com.borun.billbook.bean.MonthBillListBean;
 import com.borun.billbook.bean.MonthChartListBean;
 import com.borun.billbook.bean.MonthPayListBean;
+import com.borun.billbook.bean.NoteListBean;
 import com.borun.billbook.service.BBillService;
 import com.borun.billbook.service.BPayService;
 import com.borun.billbook.service.BSortService;
 import com.borun.billbook.utils.DateUtils;
+import com.borun.billbook.utils.JsonUtils;
 import com.borun.billbook.utils.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,6 +96,27 @@ public class BBillController {
     }
 
     /**
+     * 同步用户全部账单
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("sync")
+    @ResponseBody
+    public List<BBill> syncBill(@Param("uid") Integer id, @RequestBody List<BBill> bills) {
+
+        if (bills != null && bills.size() > 0) {
+            try {
+                System.out.println(JsonUtils.toJSONString(bills));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        List<BBill> list = bBillService.findBillsByUserId(id);
+        return list;
+    }
+
+    /**
      * 通过账单id删除账单
      *
      * @param id
@@ -99,7 +125,6 @@ public class BBillController {
     @RequestMapping("delete/{id}")
     @ResponseBody
     public BaseBean removeById(@PathVariable("id") Integer id) {
-        BBill bBill = bBillService.findBillById(id);
         if (bBillService.deleteBill(id) == 0)
             return new BaseBean().fail();
         return new BaseBean().success();
@@ -117,7 +142,6 @@ public class BBillController {
         BBill bill = bBillService.findBillById(id);
         return bill;
     }
-
 
     /**
      * 通过用户id查询某月收支情况，返回账账单明细
@@ -284,5 +308,4 @@ public class BBillController {
 
         return monthPayListBean;
     }
-
 }
