@@ -30,5 +30,9 @@
     <mvc:annotation-driven/>
     <!-- 对静态资源文件的访问 -->
     <mvc:resources location="/upload/" mapping="/upload/**"/>
+    <mvc:resources location="/images/" mapping="/images/**"/>
+    <mvc:resources location="/fonts/" mapping="/fonts/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
 
 </beans>
