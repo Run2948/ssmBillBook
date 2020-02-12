@@ -15,10 +15,11 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- Spring版本号 -->
-        <spring.version>4.3.5.RELEASE</spring.version>
+        <spring.version>4.3.7.RELEASE</spring.version>
     </properties>
 
     <dependencies>
+        <!-- 单元测试 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -150,6 +151,26 @@
             <version>2.6</version>
         </dependency>
     </dependencies>
+
+    <!--配置profiles-->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>prod</env>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>ssmBillBook</finalName>
         <plugins>
@@ -165,14 +186,21 @@
                     <port>8080</port> <!-- 设置端口 -->
                     <path>/</path><!-- 设置默认访问应用的路径 -->
                     <!-- 将项目部署到远程的tomcat中:在conf/tomcat-users.xml 文件中面配置用户名和密码, pom.xml里面配置插件 -->
-                    <!--<url>http://localhost:8080/manager/text</url>-->
-                    <!--<username>tomcat</username>-->
-                    <!--<password>tomcat</password>-->
-                    <uriEncoding>UTF-8</uriEncoding>
+                    <url>http://bill.itduck.cn//manager/text</url>
+                    <username>tomcat</username>
+                    <password>Tomcat20200212</password>
                 </configuration>
             </plugin>
         </plugins>
         <resources>
+            <resource>
+                <directory>src/main/resources.${env}</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+                <!--是否替换资源中的属性-->
+                <filtering>false</filtering>
+            </resource>
             <resource>
                 <directory>src/main/java</directory>
                 <includes>

@@ -15,7 +15,7 @@
 `bill/user`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/user/1/2017/12`
+`http://bill.itduck.cn/bill/user/1/2017/12`
 
 __接口返回数据__
 ```javascript
@@ -37,7 +37,7 @@ __接口返回数据__
 `bill/chart`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/chart/1/2017/12`
+`http://bill.itduck.cn/bill/chart/1/2017/12`
 
 __接口返回数据__
 ```javascript
@@ -57,7 +57,7 @@ __接口返回数据__
 `bill/pay`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/pay/1/2017/12`
+`http://bill.itduck.cn/bill/pay/1/2017/12`
 
 __接口返回数据__
 ```javascript
@@ -79,7 +79,7 @@ __接口返回数据__
 `bill/add`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/add?userid=1&sortid=2&payid=3&cost=555.0&crdate=2017-12-27%2020:58:27&content=test&income=false`
+`http://bill.itduck.cn/bill/add?userid=1&sortid=2&payid=3&cost=555.0&crdate=2017-12-27%2020:58:27&content=test&income=false`
 
 __接口返回数据__
 ```javascript
@@ -103,7 +103,7 @@ __接口返回数据__
 `bill/update`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/add?id=80&userid=1&sortid=2&payid=3&cost=555.0&crdate=2017-12-27%2020:58:27&content=test&income=false`
+`http://bill.itduck.cn/bill/add?id=80&userid=1&sortid=2&payid=3&cost=555.0&crdate=2017-12-27%2020:58:27&content=test&income=false`
 
 __接口返回数据__
 ```javascript
@@ -122,7 +122,7 @@ __接口返回数据__
 `bill/delete`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/delete/80`
+`http://bill.itduck.cn/bill/delete/80`
 
 __接口返回数据__
 ```javascript
@@ -141,7 +141,7 @@ __接口返回数据__
 `bill/find`
 
 **调用例子:**
-`http://v1574501x5.iok.la/bill/find/71`
+`http://bill.itduck.cn/bill/find/71`
 
 __接口返回数据__
 ```javascript
@@ -162,7 +162,7 @@ __接口返回数据__
 `user/login`
 
 **调用例子:**
-`http://v1574501x5.iok.la/user/login?username=admin&password=admin`
+`http://bill.itduck.cn/user/login?username=admin&password=admin`
 
 __接口返回数据__
 ```javascript
@@ -181,7 +181,7 @@ __接口返回数据__
 `user/sign`
 
 **调用例子:**
-`http://v1574501x5.iok.la/user/sign?username=admin&password=admin&mail=375027533@qq.com`
+`http://bill.itduck.cn/user/sign?username=admin&password=admin&mail=375027533@qq.com`
 
 __接口返回数据__
 ```javascript
@@ -202,7 +202,7 @@ __接口返回数据__
 `user/update`
 
 **调用例子:**
-`http://v1574501x5.iok.la/user/update?id=16&username=user&gender=F&phone=18725912261&mail=375027533@qq.com`
+`http://bill.itduck.cn/user/update?id=16&username=user&gender=F&phone=18725912261&mail=375027533@qq.com`
 
 __接口返回数据__
 ```javascript
@@ -220,7 +220,7 @@ __接口返回数据__
 `user/forgetPw`
 
 **调用例子:**
-`http://v1574501x5.iok.la/user/forgetPw?username=user&mail=375027533@qq.com`
+`http://bill.itduck.cn/user/forgetPw?username=user&mail=375027533@qq.com`
 
 __接口返回数据__
 ```javascript
@@ -239,7 +239,7 @@ __接口返回数据__
 `user/changePw`
 
 **调用例子:**
-`http://v1574501x5.iok.la/user/changePw?username=user&&password=admin&code=123456`
+`http://bill.itduck.cn/user/changePw?username=user&&password=admin&code=123456`
 
 __接口返回数据__
 ```javascript
@@ -260,13 +260,13 @@ __接口返回数据__
 `file/upload`
 
 **调用例子:**
-`http://v1574501x5.iok.la/file/upload`
+`http://bill.itduck.cn/file/upload`
 
 **测试地址:**
-`http://v1574501x5.iok.la/file/test`
+`http://bill.itduck.cn/file/test`
 
 **文件地址:**
-`http://v1574501x5.iok.la/upload/1_1514361165324.png`
+`http://bill.itduck.cn/upload/1_1514361165324.png`
 
 __接口返回数据__
 ```javascript
@@ -289,7 +289,7 @@ ok
 `note/user`
 
 **调用例子:**
-`http://v1574501x5.iok.la/note/user/1`
+`http://bill.itduck.cn/note/user/1`
 
 __接口返回数据__
 ```javascript
