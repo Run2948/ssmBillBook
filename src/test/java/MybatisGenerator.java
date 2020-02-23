@@ -1,5 +1,3 @@
-package com.borun.billbook.test;
-
 import org.junit.Test;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
@@ -14,16 +12,15 @@ import java.util.List;
  * @user: Qing
  * @date: 2020/02/02 14:33
  */
-public class MBGTest {
+public class MybatisGenerator {
 
     @Test
     public void generate() throws Exception {
         List<String> warnings = new ArrayList<>();
-        boolean overwrite = true;
-        File configFile = new File("classpath:mybatis-generator-config.xml");
+        File configFile = new File("src/main/resources/mybatis/generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
-        DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+        DefaultShellCallback callback = new DefaultShellCallback(true);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
     }

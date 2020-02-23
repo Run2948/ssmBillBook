@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
 
-    <properties resource="classpath:jdbc.properties"/>
+    <properties resource="jdbc.properties"/>
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
 
@@ -45,7 +45,7 @@
         </javaClientGenerator>
 
         <!-- 指定每个表的生成策略 -->
-        <table tableName="bb_bill" domainObjectName="BBill"/>
+<!--        <table tableName="bb_bill" domainObjectName="BBill"/>-->
         <!--<table tableName="bb_type" domainObjectName="BType"/>-->
         <table tableName="bb_user" domainObjectName="BUser"/>
     </context>
