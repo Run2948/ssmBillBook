@@ -48,4 +48,12 @@ public interface BSortService {
      * @return
      */
     public int addSort(BSort bSort);
+
+    /**
+     * 删除账单分类，返回操作数
+     *
+     * @param id
+     * @return
+     */
+    public int deleteSort(int id);
 }

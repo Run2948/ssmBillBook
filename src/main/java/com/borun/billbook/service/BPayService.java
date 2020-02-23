@@ -32,4 +32,12 @@ public interface BPayService {
      * @return
      */
     public int updatePayinfo(BPay bPay);
+
+    /**
+     * 删除支付方式，返回操作数
+     *
+     * @param id
+     * @return
+     */
+    public int deletePayinfo(int id);
 }

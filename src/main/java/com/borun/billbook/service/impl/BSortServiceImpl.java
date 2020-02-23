@@ -71,4 +71,15 @@ public class BSortServiceImpl implements BSortService {
     public int addSort(BSort bSort) {
         return bSortMapper.insert(bSort);
     }
+
+    /**
+     * 删除账单分类，返回操作数
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deleteSort(int id) {
+        return bSortMapper.deleteByPrimaryKey(id);
+    }
 }

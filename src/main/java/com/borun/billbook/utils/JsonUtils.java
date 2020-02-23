@@ -18,9 +18,10 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 public class JsonUtils {
-
+    
     private static ObjectMapper mapper = new ObjectMapper();
 
+    // 将对象序列化成字符串
     public static String toJSONString(Object obj) throws IOException {
         StringWriter sw = new StringWriter();
         JsonGenerator gen = new JsonFactory().createGenerator(sw);
@@ -29,6 +30,7 @@ public class JsonUtils {
         return sw.toString();
     }
 
+    // 将字符串转化成对象
     public static <T> T parseObject(String jsonStr, Class<T> objClass)
             throws JsonParseException, JsonMappingException, IOException {
         return mapper.readValue(jsonStr, objClass);

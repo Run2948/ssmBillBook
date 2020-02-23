@@ -2,6 +2,7 @@ package com.borun.billbook.controller;
 
 import com.borun.billbook.bean.BUser;
 import com.borun.billbook.service.BUserService;
+import com.borun.billbook.utils.JsonUtils;
 import com.borun.billbook.utils.MDUtils;
 import com.borun.billbook.utils.MailUtils;
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -41,10 +43,11 @@ public class BUserController {
      * @param password
      * @return
      */
-    @RequestMapping("sign")
+    @RequestMapping(value = "sign",method = RequestMethod.GET)
     @ResponseBody
     public BUser signup(@Param("username") String username, @Param("password") String password,
                         @Param("mail") String mail) {
+
         return bUserService.register(new BUser(username, password, mail));
     }
 
@@ -100,7 +103,7 @@ public class BUserController {
             user.setMailcode(code);
             //更新数据
             bUserService.updateUser(user);
-            MailUtils.send(user.getMail(), "CocoBill记账系统",
+            MailUtils.send(user.getMail(), "简易记账系统",
                     "您正在通过注册邮箱修改密码（如非本人操作，请忽略此次操作），验证码是：" + code);
             user.setSuccess();
         } else {
@@ -116,6 +119,7 @@ public class BUserController {
      * @param password
      * @param code
      * @return
+     *
      */
     @RequestMapping("changePw")
     @ResponseBody

@@ -49,4 +49,15 @@ public class BPayServiceImpl implements BPayService {
     public int updatePayinfo(BPay bPay) {
         return bPayMapper.updateByPrimaryKey(bPay);
     }
+
+    /**
+     * 删除支付方式，返回操作数
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public int deletePayinfo(int id) {
+        return bPayMapper.deleteByPrimaryKey(id);
+    }
 }

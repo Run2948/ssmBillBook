@@ -1,10 +1,6 @@
 package com.borun.billbook.controller;
 
-import com.borun.billbook.bean.BPay;
-import com.borun.billbook.bean.BPay2;
-import com.borun.billbook.bean.BSort;
-import com.borun.billbook.bean.BSort2;
-import com.borun.billbook.bean.NoteListBean;
+import com.borun.billbook.bean.*;
 import com.borun.billbook.service.BPayService;
 import com.borun.billbook.service.BSortService;
 import com.borun.billbook.service.BUserService;
@@ -59,7 +55,7 @@ public class BNoteController {
     }
 
     /**
-     * 通过sortid查询分类信息
+     * 通过用户id查询收入分类信息
      *
      * @param id
      * @return
@@ -71,7 +67,7 @@ public class BNoteController {
     }
 
     /**
-     * 添加账单分类
+     * 添加自定义账单分类
      *
      * @param uid
      * @param sortName
@@ -105,10 +101,25 @@ public class BNoteController {
     public BSort2 updateSort(@Param("id") Integer id, @Param("uid") Integer uid, @Param("sortName") String sortName,
                              @Param("sortImg") String sortImg, @Param("income") Boolean income) {
         BSort sort = new BSort(id, uid, sortName, sortImg, null, income);
-        int result = bSortService.addSort(sort);
+        int result = bSortService.updateSort(sort);
         if (result == 0)
             return (BSort2) new BSort2().fail();
         return (BSort2) new BSort2(sort).success();
+    }
+
+    /**
+     * 通过sortid删除分类信息
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("/sort/delete/{id}")
+    @ResponseBody
+    public BaseBean deleteSort(@PathVariable("id") Integer id) {
+        BaseBean baseBean = new BaseBean();
+        if(bSortService.deleteSort(id)> 0)
+            return baseBean.success();
+        return baseBean.fail("删除失败");
     }
 
     /**
@@ -135,19 +146,22 @@ public class BNoteController {
     }
 
     /**
-     * 通过payid查询分类信息
+     * 通过payid删除支付方式
      *
      * @param id
      * @return
      */
     @RequestMapping("/pay/delete/{id}")
     @ResponseBody
-    public List<BPay> deletePay(@PathVariable("id") Integer id) {
-        return bPayService.findPayinfoByUserId(id);
+    public BaseBean deletePay(@PathVariable("id") Integer id) {
+        BaseBean baseBean = new BaseBean();
+        if(bPayService.deletePayinfo(id)> 0)
+           return baseBean.success();
+        return baseBean.fail("删除失败");
     }
 
     /**
-     * 通过payid查询分类信息
+     * 通过payid查询支付方式
      *
      * @param id
      * @return
@@ -159,7 +173,7 @@ public class BNoteController {
     }
 
     /**
-     * 添加支付信息
+     * 添加自定义支付方式
      *
      * @param uid
      * @param payName
@@ -200,7 +214,7 @@ public class BNoteController {
     }
 
     /**
-     * 同步用户自定义pay分类
+     * 同步用户自定义支付方式
      *
      * @param id
      * @return

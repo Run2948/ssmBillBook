@@ -96,6 +96,20 @@ public class BBillController {
     }
 
     /**
+     * 通过账单id删除账单
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete/{id}")
+    @ResponseBody
+    public BaseBean removeById(@PathVariable("id") Integer id) {
+        if (bBillService.deleteBill(id) == 0)
+            return new BaseBean().fail();
+        return new BaseBean().success();
+    }
+
+    /**
      * 同步用户全部账单
      *
      * @param id
@@ -116,19 +130,6 @@ public class BBillController {
         return list;
     }
 
-    /**
-     * 通过账单id删除账单
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping("delete/{id}")
-    @ResponseBody
-    public BaseBean removeById(@PathVariable("id") Integer id) {
-        if (bBillService.deleteBill(id) == 0)
-            return new BaseBean().fail();
-        return new BaseBean().success();
-    }
 
     /**
      * 通过账单id查询账单
@@ -144,7 +145,7 @@ public class BBillController {
     }
 
     /**
-     * 通过用户id查询某月收支情况，返回账账单明细
+     * 通过用户id查询某月收支情况，返回账单明细
      *
      * @param id
      * @param year

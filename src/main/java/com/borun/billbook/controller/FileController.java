@@ -31,7 +31,7 @@ public class FileController {
     @Autowired
     private BUserService bUserService;
 
-    @RequestMapping("/test")
+    @RequestMapping(value = "/test",method = RequestMethod.GET)
     public String test() {
         return "upload";
     }
@@ -140,10 +140,4 @@ public class FileController {
         return versionBean;
     }
 
-    @RequestMapping(value = "/path", method = RequestMethod.GET)
-    @ResponseBody
-    public BaseBean path() {
-        String filePath = request.getSession().getServletContext().getRealPath("/upload/upgrade");
-        return new BaseBean().fail(filePath);
-    }
 }
