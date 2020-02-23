@@ -28,25 +28,35 @@
         </javaTypeResolver>
 
         <!-- 制定JavaBean的生成目录 -->
-        <javaModelGenerator targetPackage="com.billbook.bean"
+        <javaModelGenerator targetPackage="com.borun.billbook.bean"
                             targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- 制定sql映射文件生成的位置 -->
-        <sqlMapGenerator targetPackage="com.billbook.dao" targetProject=".\src\main\java">
+        <sqlMapGenerator targetPackage="com.borun.billbook.dao" targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- 制定DAO接口生成的位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.billbook.dao" targetProject=".\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.borun.billbook.dao" targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
         <!-- 指定每个表的生成策略 -->
-<!--        <table tableName="bb_bill" domainObjectName="BBill"/>-->
-        <!--<table tableName="bb_type" domainObjectName="BType"/>-->
-        <table tableName="bb_user" domainObjectName="BUser"/>
+        <!--        <table tableName="bb_bill" domainObjectName="BBill"/>-->
+        <!--        <table tableName="bb_user" domainObjectName="BUser"/>-->
+
+        <table tableName="bb_type" domainObjectName="BType"
+               enableInsert="false"
+               enableDeleteByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableUpdateByExample="false"
+               enableUpdateByPrimaryKey="false"
+               enableSelectByExample="false"
+               enableSelectByPrimaryKey="false"
+               enableCountByExample="false"
+        />
     </context>
 </generatorConfiguration>

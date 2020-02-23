@@ -1,16 +1,17 @@
 /*
-Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
-Source Server         : mysql5.7
-Source Server Version : 50719
-Source Host           : localhost:3306
-Source Database       : billbook
+ Source Server         : localhost
+ Source Server Type    : MySQL
+ Source Server Version : 50726
+ Source Host           : localhost:3306
+ Source Schema         : billbook
 
-Target Server Type    : MYSQL
-Target Server Version : 50719
-File Encoding         : 65001
+ Target Server Type    : MySQL
+ Target Server Version : 50726
+ File Encoding         : 65001
 
-Date: 2018-03-23 11:12:18
+ Date: 23/02/2020 17:26:11
 */
 
 SET NAMES utf8mb4;
@@ -150,13 +151,25 @@ CREATE TABLE `bb_user`  (
   `phonecode` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of bb_user
 -- ----------------------------
-INSERT INTO `bb_user` VALUES (1, 'admin', '3E3E6B0E5C1C68644FC5CE3CF060211D', 'M', '15997352948', '3160410046@qq.com', 0, NULL, NULL, NULL);
-INSERT INTO `bb_user` VALUES (2, 'user01', '338CCCC24975FA0F6FF93D2AFA80AFF7', NULL, NULL, '100485985@qq.com', 1, 'ecbd72af2fc24585926627ec71354684c11da4bacde64b9796568ecdd99e79bc', NULL, NULL);
+INSERT INTO `bb_user` VALUES (1, 'admin', '3E3E6B0E5C1C68644FC5CE3CF060211D', '男', '15997352948', '3160410046@qq.com', 0, NULL, NULL, NULL);
+INSERT INTO `bb_user` VALUES (2, 'user01', '338CCCC24975FA0F6FF93D2AFA80AFF7', '男', '15997352948', '100485985@qq.com', 1, 'ecbd72af2fc24585926627ec71354684c11da4bacde64b9796568ecdd99e79bc', NULL, NULL);
 INSERT INTO `bb_user` VALUES (3, 'user02', 'C1898DE4A655382952DC4A93688E211D', NULL, NULL, '100485985@qq.com', 1, 'ecbd72af2fc24585926627ec71354684c11da4bacde64b9796568ecdd99e79bc', NULL, NULL);
+INSERT INTO `bb_user` VALUES (4, 'user03', '8AF12CB8A97987B0AF3D90E555FE9999', '0', '13597352947', '15997352948@163.com', 0, '578551', NULL, NULL);
+
+-- ----------------------------
+-- Table structure for bb_type
+-- ----------------------------
+DROP TABLE IF EXISTS `bb_type`;
+CREATE TABLE `bb_type`  (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `title` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `pid` int(8) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
